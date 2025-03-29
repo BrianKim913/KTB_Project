@@ -5,7 +5,7 @@
 ![아키텍처 다이어그램](./architecture.png)
 
 ## 아키텍처 설명
-이 프로젝트는 AWS EKS(Elastic Kubernetes Service)를 기반으로 한 클라우드 네이티브 아키텍처를 구현하여 확장성, 보안성, 안정성을 위주로 설계함.
+EKS(Elastic Kubernetes Service)를 기반으로 한 클라우드 네이티브 아키텍처를 구현하여 확장성을 위주로 설계
 
 
 ### 인프라
@@ -13,7 +13,8 @@
 - **AWS S3**: 사용자 업로드 파일, 정적 콘텐츠, 로그 저장.
 - **CloudFront**: 콘텐츠 전송 네트워크(CDN)로 글로벌 성능 향상
 - **Route 53**: DNS 및 트래픽 라우팅
-- **Load Balancer Controller**: k8s ingress를 위한 Application Load Balancer
+- **Load Balancer Controller**: k8s ingress Application Load Balancer
+- **RDS**: Postgres DB
 
 ### 모니터링 및 로깅
 - **Prometheus**: 시스템 메트릭 모니터링
@@ -24,7 +25,7 @@
 ## 클러스터 구성
 - **노드 타입**: t3.medium 인스턴스 4개 
 - **환경**: 프로덕션 VPC에 단일 클러스터
-- **확장**: hpa로 pod 자동 확장, eks 노드 그룹 autoscaling으로 자원 확장.
+- **확장**: hpa로 pod 자동 확장, eks 노드 그룹 autoscaling으로 자원 확장
 - **특징**: Prometheus, Grafana, Loki, Promtail 스택 및 EKS 애드온을 활용하여 kubernetes 클러스터를 관리하고 모니터링
 - **보안**: private endpoint만 활성화하여 aws 인증 뿐 아니라 OpenVPN를 통한 제한된 접근만 가능
 
@@ -33,6 +34,12 @@
 - **Git 중심 워크플로우**: 인프라 및 애플리케이션 구성의 버전 관리
 - **자동화된 배포**: 코드 변경 감지 시 자동 배포 프로세스
 
+## 프로젝트 리포지토리
+| 리포지토리 이름 | 설명 | 링크 |
+|--------------|-----|------|
+| frontend | React | [바로가기](https://github.com/briankim913/ekstest) |
+| backend | Spring Boot | [바로가기](https://github.com/briankim913/weekly4_kubernetes) |
+| k8s-config | Kubernetes, argoCD 매니페스트 | [바로가기](https://github.com/briankim913/weekly4_config) |
 
 ## 리소스 선택 이유
 
@@ -50,8 +57,8 @@
 
 1. **비용 최적화**: 이렇게 한달만 서버를 운영해도 70만원이라는 budget을 거의 다 소비해야 될 것 같다. 스팟 인스턴스 활용할 수 있을지 검토해보고 비용절감을 위해 dev 환경에서는 노드 인스턴스를 어떻게 구성해야 할 지 아직 더 고민중
 2. **멀티 클러스터**: 보안, 장애 복구, 이 외에도 dev, stage, production 환경을 분리하기 위해서 vpc 및 클러스터가 여러개 필요할 것으로 예상됨, 현재는 dev와 stage를 하나의 vpc및 클러스터에서 별도 네임스페이스로 개발하는 것을 생각중
-3. **보안 강화**: 애플리케이션 보안, 취약점 검사를 위한 이미지 스캐닝, Sigstore Cosign을 통한 이미지 서명 추가. 이 외에도 아직 해당 아키텍쳐의 보안성이 production level에 적합한지 좀 더 고민이 필요 할 것 같음
-
+3. **보안 강화**: 네트워크 보안, 애플리케이션 보안, 취약점 검사를 위한 이미지 스캐닝, 이미지 서명 추가. 이 외에도 아직 해당 아키텍쳐의 보안성이 production level에 적합한지 좀 더 고민이 필요 할 것 같음
+4. **Data pipeline**: LLM 기반의 서비스 기능 추가시 어떻게 aws에 provisioning해야 할지 감이 안잡힘
 
 ### 장점
 
