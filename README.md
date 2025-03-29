@@ -77,4 +77,4 @@ EKS(Elastic Kubernetes Service)를 기반으로 한 클라우드 네이티브 �
 
 ## 데모 비디오
 
-[데모 비디오 보기](./demo.mov)
+[![프로젝트 데모 비디오](https://img.youtube.com/vi/tAjX8aBCGvg/0.jpg)](https://www.youtube.com/watch?v=tAjX8aBCGvg)
