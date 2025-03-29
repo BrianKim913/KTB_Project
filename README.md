@@ -2,10 +2,11 @@
 
 ## 아키텍처 다이어그램
 
+![아키텍처 다이어그램](./architecture.png)
 
 ## 아키텍처 설명
+이 프로젝트는 AWS EKS(Elastic Kubernetes Service)를 기반으로 한 클라우드 네이티브 아키텍처를 구현하여 확장성, 보안성, 안정성을 위주로 설계함.
 
-이 프로젝트는 Kubernetes 기반 마이크로서비스 아키텍처를 채택하여 확장성, 유연성 및 견고성을 제공합니다. 주요 구성 요소는 다음과 같습니다:
 
 ### 인프라
 - **AWS EKS**: Kubernetes 클러스터 관리
@@ -18,13 +19,20 @@
 - **Prometheus**: 시스템 메트릭 모니터링
 - **Grafana**: 시각화 및 대시보드
 - **Loki**: 로그 집계 시스템
-- **Promtail**: 로그 수집기
-- 
+- **Promtail**: 로그 수집기 
+
 ## 클러스터 구성
 - **노드 타입**: t3.medium 인스턴스 4개 
 - **환경**: 프로덕션 VPC에 단일 클러스터
 - **확장**: hpa로 pod 자동 확장, eks 노드 그룹 autoscaling으로 자원 확장.
 - **특징**: Prometheus, Grafana, Loki, Promtail 스택 및 EKS 애드온을 활용하여 kubernetes 클러스터를 관리하고 모니터링
+- **보안**: private endpoint만 활성화하여 aws 인증 뿐 아니라 OpenVPN를 통한 제한된 접근만 가능
+
+## CI/CD
+- **ArgoCD**: 선언적 GitOps 방식의 지속적 배포 구현
+- **Git 중심 워크플로우**: 인프라 및 애플리케이션 구성의 버전 관리
+- **자동화된 배포**: 코드 변경 감지 시 자동 배포 프로세스
+
 
 ## 리소스 선택 이유
 
@@ -57,5 +65,9 @@
 
 1. **복잡성**: Kubernetes와 MSA의 운영이 복잡함
 2. **비용**: EKS 관리 비용 및 모니터링 도구를 위한 고사양 노드 필요
-3. **리소스 요구사항**: Prometheus, Grafana, Loki 등이 기본 리소스를 차지하고 있음, 지금은 간단한 React, Spring boot app을 각각 pod 하나씩만 배포 했지만 팀 프로젝트에서는 애플리케이션도 replica가 필요할 것이고, LLM 처리하는 fastapi도 추가 되면 매우 높은 양의 리소스가 요구 될 것으로 보임
+3. **리소스 요구사항**: Prometheus, Grafana, Loki 등이 기본 리소스를 차지하고 있음, 지금은 간단한 React, Spring boot app을 각각 pod 하나씩만 배포 했지만 팀 프로젝트에서는 애플리케이션도 replica가 필요할 것이고, LLM 처리하는 fastapi도 추가 되면 많은 양의 리소스가 요구 될 것으로 보임
 
+
+## 데모 비디오
+
+[데모 비디오 보기](./demo.mov)
