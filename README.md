@@ -41,6 +41,8 @@ EKS(Elastic Kubernetes Service)를 기반으로 한 클라우드 네이티브 �
 | backend | Spring Boot | [바로가기](https://github.com/briankim913/weekly4_kubernetes) |
 | k8s-config | Kubernetes, argoCD 매니페스트 | [바로가기](https://github.com/briankim913/weekly4_config) |
 
+-Terraform 소스코드는 Private 상태, 
+
 ## 리소스 선택 이유
 
 ### AWS EKS
